@@ -1,0 +1,120 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+      $("#btn2").click(function(){
+        $("#header").show(1000);
+      }) 
+      $("#btn3").click(function(){
+        $("#header").hide(1000);
+      }) 
+  })
+</script>
+<script>
+    $(document).ready(function(){
+      $("#rd1").click(function(){
+          $("p2").text("set difficulty(from 2 to 10) and decide whether substract successes when one is rolled");
+          $("#test").removeAttr("readonly");
+          $("#test").val("0");
+          $("#test1").val("0");
+          $("#jedynki").show(1000);
+          
+      })
+      $("#rd2").click(function(){
+          $("p2").text("constant difficulty(8), one does not substract successes");
+          $("#test").val("8");
+          $("#test1").val("0");
+          $("#test").attr("readonly", true);
+          $("#jedynki").hide(1000);
+      })
+    })
+</script>
+<script>
+
+</script>
+<script>
+  $(document).ready(function(){
+    $("#btn1").click(function(){
+      $.post("/",
+        {
+         "ST": $("#test").val(),
+         "IK": $("#test1").val(),
+         "Failure": $("#jedynki").val()
+        },
+     function(response){
+      $("#wynik").text("Number of successes " + response.iloscsukcesow + " and number of rerolls " + response.iloscprzerzutow);
+        })
+    })
+  })
+</script>
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 15px;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+</style>
+</head>
+<body>
+
+  <div class="row">
+    <div class="column"></div>
+    <div class="column" style="background-color: #DEE6FF; text-align: justify">
+      <h1 align="center">Dice Roller 1.0-rc</h1><br>
+      <button id="btn2">Show description</button>
+      <button id="btn3">Hide description</button>
+    
+
+      <p id="header" hidden>
+        
+         This application simulates dice roll and compares with given value. <br>
+         If the value is higher or equal with given value(difficulty), application returns success.<br>
+         User can decide if he wants to simulate rolls with constant or changing difficulty<br>
+         If result equals "10", application adds one additional roll.<br>
+         Optionally, if result equals "1", application substracts one success.<br>
+         When rolling is finished, application returns total numbers of successes and rerolls.<br>
+         User can decide whether to use option with substracting successes(when result is "1") or not.<br>  
+      </p> 
+      <p>
+        <b>Choose system version:</b><br>
+
+        <form>
+          <input id="rd1" type="radio" name="nazwa" value="wartość" checked>Mechanics variant I<br>
+          <input id="rd2" type="radio" name="nazwa" value="wartość1">Mechanics variant II<br>
+        </form>
+            Chosen system version: <p2>Set difficulty(from 2 to 10) and decide whether substract successes when "1" is rolled</p2><br><br>
+        <form>
+          <select id="jedynki">
+            <option value="1" id="jedynki1">Substract numbers of successes when "1" is a result</option>
+            <option value="2" id="jedynki2">Do not substract numbers of successes if "1" is a result</option>
+          </select>
+        </form>
+      <p id="ST1">Difficulty: <input type="text" id="test" value="0"></p>  
+      <p id="IK1">Number of dices: <input type="text" id="test1" value="0"></p>
+      <button id="btn1">ROLL</button><br>
+      <p1 id="wynik">Ready to present results</p1><br>
+      </p>
+    </div>
+    <div class="column"></div>
+  </div>
+    
+
+</body>
+</html>
