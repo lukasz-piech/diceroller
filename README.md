@@ -18,7 +18,7 @@ Project is created with:
 
 	
 ## Launch
-To run this project, open following link in a browser - https://kostka.herokuapp.com/
+To run this project, open following link in a browser - https://lp-diceroller.herokuapp.com/
 
 ## Future plans
 * add exceptions
